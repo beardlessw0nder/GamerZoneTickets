@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Paul's Gamerzone – Ticket System</title>
+  <link rel="icon" type="image/png" href="gamerzone-logo.png">
+  <style>
+    :root {
+      --gz-red: #E2261C;
+      --gz-dark: #0b0b11;
+      --gz-card: #151520;
+      --gz-text: #ffffff;
+      --gz-muted: #a0a0a0;
+    }
+
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top left, #2a2a3b 0, #050509 45%),
+                  radial-gradient(circle at bottom right, #441010 0, #050509 55%);
+      color: var(--gz-text);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .logo-wrap {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #ffffff, #cccccc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      margin-bottom: 25px;
+      box-shadow: 0 8px 35px rgba(0,0,0,0.6);
+    }
+
+    .logo-wrap img {
+      width: 95%;
+      height: 95%;
+      object-fit: contain;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .btn-container {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    .ticket-btn {
+      padding: 16px;
+      border-radius: 12px;
+      border: 2px solid var(--gz-red);
+      background: rgba(0,0,0,0.3);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      box-shadow: 0 0 12px rgba(226,38,28,0.55);
+      transition: 0.15s ease-in-out;
+    }
+
+    .ticket-btn:hover {
+      background: var(--gz-red);
+      color: #fff;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(226,38,28,0.85);
+    }
+
+    .footer {
+      margin-top: 25px;
+      font-size: 0.75rem;
+      color: var(--gz-muted);
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="logo-wrap">
+    <img src="gamerzone-logo.png" alt="Gamerzone Logo">
+  </div>
+
+  <h1>Paul’s Gamerzone</h1>
+
+  <div class="btn-container">
+    <a class="ticket-btn" href="repair-tickets.html">🛠 Repair Tickets</a>
+    <a class="ticket-btn" href="buytrade-tickets.html">💱 Buy/Trade Tickets</a>
+  </div>
+
+  <div class="footer">
+    Gamerzone Ticket System • Access Anywhere
+  </div>
+
+</body>
+</html>

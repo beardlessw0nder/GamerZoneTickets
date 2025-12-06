@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" data-ticket-type="repair" data-ticket-label="Console">
+<head>
+  <meta charset="UTF-8">
+  <title>Paul's Gamerzone – Repair Tickets</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="tickets.js" defer></script>
+</head>
+<body data-ticket-type="repair" data-ticket-label="Console">
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">
+        <span class="label">Repair Tickets</span>
+        <span class="dot"></span>
+      </div>
+      <div class="sidebar-actions">
+        <button type="button" class="primary" id="newTicketBtn">＋ New</button>
+        <button type="button" id="loadTicketsBtn">📂 Load</button>
+        <input type="file" id="fileInput" accept=".json" multiple style="display:none;">
+      </div>
+    </div>
+    <div class="sidebar-body" id="ticketList">
+      <!-- Tickets populated by JS -->
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="top-bar">
+      <div class="brand-mini">
+        PAUL’S <span>GAMERZONE</span> • Repair Tickets
+      </div>
+      <div class="toolbar">
+        <button type="button" class="secondary" id="saveTicketBtn">💾 Save Ticket (JSON)</button>
+        <button type="button" onclick="window.print()">🖨 Print / Save as PDF</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <!-- Header -->
+        <div class="header">
+          <div class="logo-wrap">
+            <img src="gamerzone-logo.png" alt="Paul's Gamerzone Logo">
+          </div>
+          <div class="header-main">
+            <div class="brand-name">
+              PAUL’S <span>GAMERZONE</span>
+            </div>
+            <div class="header-subtitle">
+              Console Repair Ticket
+            </div>
+          </div>
+          <div class="meta">
+            <div>
+              <span class="meta-label">Date:</span>
+              <input type="date"
+                     id="ticketDate"
+                     style="width: 125px; background: var(--gz-input-bg); border: 1px solid var(--gz-border); color: var(--gz-text); font-size: 0.72rem; padding: 2px 4px;">
+            </div>
+            <div style="margin-top:4px;">
+              <span class="meta-label">Ticket ID:</span>
+              <input type="text"
+                     id="ticketId"
+                     placeholder="Auto-generated on save"
+                     style="width: 160px; background: var(--gz-input-bg); border: 1px solid var(--gz-border); color: var(--gz-text); font-size: 0.72rem; padding: 2px 4px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <form id="ticketForm">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">1. Customer Information</div>
+              <div class="section-pill">Customer</div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Name</div>
+                <input type="text" name="customer_name">
+              </div>
+              <div class="field">
+                <div class="field-label">Phone</div>
+                <input type="text" name="customer_phone">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Email</div>
+                <input type="text" name="customer_email">
+              </div>
+              <div class="field">
+                <div class="field-label">Preferred Contact</div>
+                <input type="text" name="contact_pref" placeholder="Call, text, email, etc.">
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">2. Device Information</div>
+              <div class="section-pill">Console</div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Console Type</div>
+                <input type="text" name="console_type" placeholder="PS5, Xbox Series X, Switch, etc.">
+              </div>
+              <div class="field">
+                <div class="field-label">Model</div>
+                <input type="text" name="console_model">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Serial Number</div>
+                <input type="text" name="console_serial">
+              </div>
+              <div class="field">
+                <div class="field-label">Accessories Left With Console</div>
+                <input type="text" name="console_accessories" placeholder="Controller, HDMI, power cable, etc.">
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">3. Issue Description</div>
+              <div class="section-pill">Customer</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Customer-Reported Issue</div>
+              <textarea name="issue_desc" placeholder="Describe what the customer is experiencing..."></textarea>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">4. Technician Findings & Work Performed</div>
+              <div class="section-pill">Tech</div>
+            </div>
+            <div class="field">
+              <div class="field-label">Initial Diagnosis</div>
+              <textarea name="diag" placeholder="Testing performed, visible damage, suspected cause..."></textarea>
+            </div>
+            <div class="field" style="margin-top:6px;">
+              <div class="field-label">Work Performed / Parts Used</div>
+              <textarea name="work" placeholder="Soldered HDMI, replaced port, cleaned dust, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">5. Pricing & Approval</div>
+              <div class="section-pill">Value</div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Labor</div>
+                <input type="text" name="labor" placeholder="$">
+              </div>
+              <div class="field">
+                <div class="field-label">Parts</div>
+                <input type="text" name="parts" placeholder="$">
+              </div>
+              <div class="field">
+                <div class="field-label">Total</div>
+                <input type="text" name="total" placeholder="$">
+              </div>
+            </div>
+            <div class="small-text" style="margin-top:6px;">
+              By signing, the customer agrees to the above repair and charges. Paul’s Gamerzone is not responsible
+              for data loss, prior damage, or issues unrelated to the repair performed.
+            </div>
+            <div class="signature-row" style="margin-top:8px;">
+              <div class="signature-block">
+                <div class="field-label">Customer Signature</div>
+                <input type="text" name="cust_signature" class="signature-line-input">
+                <div class="signature-meta">
+                  <span>Print Name<input type="text" name="cust_print"></span>
+                  <span>Date<input type="text" name="cust_sign_date"></span>
+                </div>
+              </div>
+              <div class="signature-block">
+                <div class="field-label">Technician</div>
+                <input type="text" name="tech_signature" class="signature-line-input">
+                <div class="signature-meta">
+                  <span>Print Name<input type="text" name="tech_print"></span>
+                  <span>Date<input type="text" name="tech_sign_date"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="footer-text">
+          Paul’s Gamerzone • Console Repair Ticket
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

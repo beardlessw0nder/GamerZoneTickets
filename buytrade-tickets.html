@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en" data-ticket-type="buytrade" data-ticket-label="Buy/Trade">
+<head>
+  <meta charset="UTF-8">
+  <title>Paul's Gamerzone – Buy/Trade Tickets</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="tickets.js" defer></script>
+</head>
+<body data-ticket-type="buytrade" data-ticket-label="Buy/Trade">
+<div class="app-shell">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-title">
+        <span class="label">Buy / Trade Tickets</span>
+        <span class="dot"></span>
+      </div>
+      <div class="sidebar-actions">
+        <button type="button" class="primary" id="newTicketBtn">＋ New</button>
+        <button type="button" id="loadTicketsBtn">📂 Load</button>
+        <input type="file" id="fileInput" accept=".json" multiple style="display:none;">
+      </div>
+    </div>
+    <div class="sidebar-body" id="ticketList">
+      <!-- Tickets populated by JS -->
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="main">
+    <div class="top-bar">
+      <div class="brand-mini">
+        PAUL’S <span>GAMERZONE</span> • Buy / Trade Tickets
+      </div>
+      <div class="toolbar">
+        <button type="button" class="secondary" id="saveTicketBtn">💾 Save Ticket (JSON)</button>
+        <button type="button" onclick="window.print()">🖨 Print / Save as PDF</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-inner">
+        <!-- Header -->
+        <div class="header">
+          <div class="logo-wrap">
+            <img src="gamerzone-logo.png" alt="Paul's Gamerzone Logo">
+          </div>
+          <div class="header-main">
+            <div class="brand-name">
+              PAUL’S <span>GAMERZONE</span>
+            </div>
+            <div class="header-subtitle">
+              Console Buy / Trade Agreement
+            </div>
+          </div>
+          <div class="meta">
+            <div>
+              <span class="meta-label">Date:</span>
+              <input type="date"
+                     id="ticketDate"
+                     style="width: 125px; background: var(--gz-input-bg); border: 1px solid var(--gz-border); color: var(--gz-text); font-size: 0.72rem; padding: 2px 4px;">
+            </div>
+            <div style="margin-top:4px;">
+              <span class="meta-label">Ticket ID:</span>
+              <input type="text"
+                     id="ticketId"
+                     placeholder="Auto-generated on save"
+                     style="width: 160px; background: var(--gz-input-bg); border: 1px solid var(--gz-border); color: var(--gz-text); font-size: 0.72rem; padding: 2px 4px;">
+            </div>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <form id="ticketForm">
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">1. Customer Information</div>
+              <div class="section-pill">Customer</div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Name</div>
+                <input type="text" name="customer_name">
+              </div>
+              <div class="field">
+                <div class="field-label">Phone</div>
+                <input type="text" name="customer_phone">
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Email</div>
+                <input type="text" name="customer_email">
+              </div>
+              <div class="field">
+                <div class="field-label">Address</div>
+                <input type="text" name="customer_address">
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">2. Item Being Sold / Traded</div>
+              <div class="section-pill">Console</div>
+            </div>
+
+            <div class="field">
+              <div class="field-label">Console Type</div>
+              <div class="checkbox-group">
+                <label class="checkbox">
+                  <input type="checkbox" name="console_type_playstation">
+                  <span>PlayStation</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="console_type_xbox">
+                  <span>Xbox</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="console_type_nintendo">
+                  <span>Nintendo</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="console_type_pc">
+                  <span>PC</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="console_type_other">
+                  <span>Other:</span>
+                </label>
+                <input type="text" name="console_type_other_text" style="max-width: 160px;">
+              </div>
+            </div>
+
+            <div class="field-row" style="margin-top:6px;">
+              <div class="field">
+                <div class="field-label">Model</div>
+                <input type="text" name="console_model">
+              </div>
+              <div class="field">
+                <div class="field-label">Serial Number</div>
+                <input type="text" name="console_serial">
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:6px;">
+              <div class="field-label">Included Accessories</div>
+              <div class="checkbox-group">
+                <label class="checkbox">
+                  <input type="checkbox" name="acc_controller">
+                  <span>Controller(s) – Qty:</span>
+                </label>
+                <input type="number" name="acc_controller_qty" min="0" style="width:60px;">
+                <label class="checkbox">
+                  <input type="checkbox" name="acc_power">
+                  <span>Power Cable</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="acc_hdmi">
+                  <span>HDMI Cable</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="acc_storage">
+                  <span>Storage / Memory Card</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="acc_box">
+                  <span>Original Box</span>
+                </label>
+                <label class="checkbox">
+                  <input type="checkbox" name="acc_other">
+                  <span>Other</span>
+                </label>
+                <input type="text" name="acc_other_text" style="max-width: 200px;">
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">3. Condition Assessment</div>
+              <div class="section-pill">Tech</div>
+            </div>
+
+            <div class="field">
+              <div class="field-label">Cosmetic Condition</div>
+              <div class="checkbox-group">
+                <label class="checkbox"><input type="checkbox" name="cosmetic_excellent"><span>Excellent</span></label>
+                <label class="checkbox"><input type="checkbox" name="cosmetic_good"><span>Good</span></label>
+                <label class="checkbox"><input type="checkbox" name="cosmetic_fair"><span>Fair</span></label>
+                <label class="checkbox"><input type="checkbox" name="cosmetic_poor"><span>Poor</span></label>
+                <label class="checkbox"><input type="checkbox" name="cosmetic_heavy"><span>Heavy Damage</span></label>
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:6px;">
+              <div class="field-label">Functional Condition</div>
+              <div class="checkbox-group">
+                <label class="checkbox"><input type="checkbox" name="functional_working"><span>Fully Working</span></label>
+                <label class="checkbox"><input type="checkbox" name="functional_issues"><span>Powers On / Issues Present</span></label>
+                <label class="checkbox"><input type="checkbox" name="functional_nopower"><span>No Power</span></label>
+                <label class="checkbox"><input type="checkbox" name="functional_hdmi"><span>Broken HDMI</span></label>
+                <label class="checkbox"><input type="checkbox" name="functional_overheat"><span>Overheating</span></label>
+                <label class="checkbox"><input type="checkbox" name="functional_other"><span>Other</span></label>
+                <input type="text" name="functional_other_text" style="max-width: 220px;">
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:8px;">
+              <div class="field-label">Technician Notes</div>
+              <textarea name="tech_notes" placeholder="Initial findings, tests performed, visible damage, etc."></textarea>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">4. Ownership & Legal Attestation</div>
+              <div class="section-pill">Agreement</div>
+            </div>
+            <div class="small-text">
+              The seller confirms that:
+              <br>1. They are the legal owner of the console listed above.
+              <br>2. The console is not stolen, locked to an account they cannot access, or tied to unpaid financing.
+              <br>3. Paul’s Gamerzone reserves the right to refuse any buy/trade for any reason.
+            </div>
+            <div class="field-row" style="margin-top:8px;">
+              <div class="field" style="max-width:220px;">
+                <div class="field-label">Customer Initials</div>
+                <input type="text" name="customer_initials">
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">5. Offer Details</div>
+              <div class="section-pill">Value</div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Trade Value Offered</div>
+                <input type="text" name="trade_value" placeholder="$">
+              </div>
+              <div class="field">
+                <div class="field-label">Cash Offer (Buy-Out)</div>
+                <input type="text" name="cash_offer" placeholder="$">
+              </div>
+            </div>
+
+            <div class="field" style="margin-top:6px;">
+              <div class="field-label">Customer Chooses</div>
+              <div class="checkbox-group">
+                <label class="checkbox"><input type="checkbox" name="payout_cash"><span>Cash Sale</span></label>
+                <label class="checkbox"><input type="checkbox" name="payout_credit"><span>Trade-In Credit</span></label>
+              </div>
+              <div class="small-text" style="margin-top:4px;">
+                Trade-in credits may receive a higher value and cannot be exchanged for cash.
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">6. Final Agreement</div>
+              <div class="section-pill">Sign</div>
+            </div>
+            <div class="small-text" style="margin-bottom:6px;">
+              By signing below, the customer agrees to transfer ownership of the above console to Paul’s Gamerzone
+              in exchange for the agreed-upon value. All sales are final and cannot be reversed once payment or store credit is issued.
+            </div>
+
+            <div class="signature-row">
+              <div class="signature-block">
+                <div class="field-label">Customer Signature</div>
+                <input type="text" name="customer_signature" class="signature-line-input">
+                <div class="signature-meta">
+                  <span>Print Name<input type="text" name="customer_print_name"></span>
+                  <span>Date<input type="text" name="customer_sign_date"></span>
+                </div>
+              </div>
+
+              <div class="signature-block">
+                <div class="field-label">Gamerzone Representative</div>
+                <input type="text" name="rep_signature" class="signature-line-input">
+                <div class="signature-meta">
+                  <span>Print Name<input type="text" name="rep_print_name"></span>
+                  <span>Date<input type="text" name="rep_sign_date"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-header">
+              <div class="section-title">7. Internal Use Only</div>
+              <div class="section-pill">Staff</div>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <div class="field-label">Verified By</div>
+                <input type="text" name="verified_by">
+              </div>
+              <div class="field">
+                <div class="field-label">Inspection Completed</div>
+                <div class="checkbox-group">
+                  <label class="checkbox"><input type="checkbox" name="inspection_yes"><span>Yes</span></label>
+                  <label class="checkbox"><input type="checkbox" name="inspection_no"><span>No</span></label>
+                </div>
+              </div>
+            </div>
+
+            <div class="field-row" style="margin-top:4px;">
+              <div class="field">
+                <div class="field-label">Payment Issued</div>
+                <div class="checkbox-group">
+                  <label class="checkbox"><input type="checkbox" name="payment_cash"><span>Cash</span></label>
+                  <label class="checkbox"><input type="checkbox" name="payment_credit"><span>Trade Credit</span></label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div class="footer-text">
+          Paul’s Gamerzone • Console Buy / Trade Ticket
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

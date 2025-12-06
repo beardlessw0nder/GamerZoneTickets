@@ -528,3 +528,73 @@ textarea {
     print-color-adjust: exact;
   }
 }
+/* ============================
+   Mobile layout adjustments
+   ============================ */
+@media (max-width: 768px) {
+  body {
+    padding: 8px;
+  }
+
+  .app-shell {
+    max-width: 100%;
+    display: block;           /* Stack sidebar above main */
+  }
+
+  .sidebar {
+    margin-bottom: 10px;
+    border-radius: 12px;
+  }
+
+  .main {
+    gap: 6px;
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .toolbar {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .toolbar button {
+    flex: 1 1 48%;
+    justify-content: center;
+  }
+
+  .card {
+    padding: 12px 12px 14px;
+    border-radius: 12px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .meta {
+    text-align: left;
+    margin-top: 6px;
+  }
+
+  .field-row {
+    flex-direction: column;
+  }
+
+  .field {
+    min-width: 100%;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea {
+    font-size: 0.9rem;
+  }
+}

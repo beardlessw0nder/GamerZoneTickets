@@ -4,9 +4,12 @@
   <meta charset="UTF-8">
   <title>Paul's Gamerzone – Repair Tickets</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="theme-color" content="#E2261C">
+  <link rel="apple-touch-icon" href="apple-touch-icon.PNG">
+
   <link rel="stylesheet" href="styles.css">
   <script src="tickets.js" defer></script>
-  <link rel="apple-touch-icon" href="apple-touch-icon.PNG">
 </head>
 <body data-ticket-type="repair" data-ticket-label="Console">
 <div class="app-shell">
@@ -34,15 +37,19 @@
       <div class="brand-mini">
         PAUL’S <span>GAMERZONE</span> • Repair Tickets
       </div>
-<div class="toolbar">
-  <button type="button" class="secondary" onclick="window.location.href='index.html'">
-    ⬅ Back to Menu
-  </button>
-  <button type="button" class="secondary" id="saveTicketBtn">💾 Save Ticket (JSON)</button>
-  <button type="button" onclick="window.print()">🖨 Print / Save as PDF</button>
-</div>
+      <div class="toolbar">
+        <button type="button" class="secondary" onclick="window.location.href='index.html'">
+          ⬅ Back to Menu
+        </button>
+        <button type="button" class="secondary" id="saveTicketBtn">
+          💾 Save Ticket (JSON)
+        </button>
+        <button type="button" onclick="window.print()">
+          🖨 Print / Save as PDF
+        </button>
+      </div>
     </div>
-    
+
     <div class="card">
       <div class="card-inner">
         <!-- Header -->
@@ -63,20 +70,21 @@
               <span class="meta-label">Date:</span>
               <input type="date"
                      id="ticketDate"
-                     style="width: 125px; background: var(--gz-input-bg); border: 1px solid var(--gz-border); color: var(--gz-text); font-size: 0.72rem; padding: 2px 4px;">
+                     class="meta-input">
             </div>
             <div style="margin-top:4px;">
               <span class="meta-label">Ticket ID:</span>
               <input type="text"
                      id="ticketId"
                      placeholder="Auto-generated on save"
-                     style="width: 160px; background: var(--gz-input-bg); border: 1px solid var(--gz-border); color: var(--gz-text); font-size: 0.72rem; padding: 2px 4px;">
+                     class="meta-input wide">
             </div>
           </div>
         </div>
 
         <!-- FORM -->
         <form id="ticketForm">
+          <!-- Customer Info -->
           <div class="section">
             <div class="section-header">
               <div class="section-title">1. Customer Information</div>
@@ -104,6 +112,7 @@
             </div>
           </div>
 
+          <!-- Device Info -->
           <div class="section">
             <div class="section-header">
               <div class="section-title">2. Device Information</div>
@@ -131,6 +140,7 @@
             </div>
           </div>
 
+          <!-- Issue Description -->
           <div class="section">
             <div class="section-header">
               <div class="section-title">3. Issue Description</div>
@@ -142,6 +152,7 @@
             </div>
           </div>
 
+          <!-- Tech Findings -->
           <div class="section">
             <div class="section-header">
               <div class="section-title">4. Technician Findings & Work Performed</div>
@@ -157,6 +168,7 @@
             </div>
           </div>
 
+          <!-- Pricing & Approval -->
           <div class="section">
             <div class="section-header">
               <div class="section-title">5. Pricing & Approval</div>
@@ -185,16 +197,24 @@
                 <div class="field-label">Customer Signature</div>
                 <input type="text" name="cust_signature" class="signature-line-input">
                 <div class="signature-meta">
-                  <span>Print Name<input type="text" name="cust_print"></span>
-                  <span>Date<input type="text" name="cust_sign_date"></span>
+                  <span>Print Name
+                    <input type="text" name="cust_print">
+                  </span>
+                  <span>Date
+                    <input type="text" name="cust_sign_date">
+                  </span>
                 </div>
               </div>
               <div class="signature-block">
                 <div class="field-label">Technician</div>
                 <input type="text" name="tech_signature" class="signature-line-input">
                 <div class="signature-meta">
-                  <span>Print Name<input type="text" name="tech_print"></span>
-                  <span>Date<input type="text" name="tech_sign_date"></span>
+                  <span>Print Name
+                    <input type="text" name="tech_print">
+                  </span>
+                  <span>Date
+                    <input type="text" name="tech_sign_date">
+                  </span>
                 </div>
               </div>
             </div>

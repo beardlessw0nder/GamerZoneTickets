@@ -22,18 +22,17 @@ body {
     radial-gradient(circle at top left, #2a2a3b 0, #050509 45%),
     radial-gradient(circle at bottom right, #441010 0, #050509 55%);
   color: var(--gz-text);
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
-  padding: 16px;
+  display: block;
+  padding: 16px 24px;
 }
 
 .app-shell {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
+  margin: 0 auto;
   display: grid;
-  grid-template-columns: 260px minmax(0,1fr);
-  gap: 12px;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 16px;
 }
 
 /* Sidebar */
@@ -327,6 +326,19 @@ body {
   font-weight: 600;
 }
 
+.meta-input {
+  width: 125px;
+  background: var(--gz-input-bg);
+  border: 1px solid var(--gz-border);
+  color: var(--gz-text);
+  font-size: 0.72rem;
+  padding: 2px 4px;
+}
+
+.meta-input.wide {
+  width: 160px;
+}
+
 /* Sections / fields */
 .section {
   border-radius: 10px;
@@ -459,7 +471,7 @@ textarea {
 .signature-line-input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.7);
   background: transparent;
   color: var(--gz-text);
   font-size: 0.8rem;
@@ -484,7 +496,7 @@ textarea {
 .signature-meta span input {
   width: 100%;
   border: none;
-  border-bottom: 1px dashed rgba(255, 255, 255, 0.3);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.5);
   background: transparent;
   color: var(--gz-text);
   font-size: 0.72rem;
@@ -499,46 +511,15 @@ textarea {
   color: var(--gz-muted);
 }
 
-/* Print */
-@media print {
-  body {
-    background: #ffffff;
-    padding: 0;
-  }
-  .app-shell {
-    max-width: none;
-    display: block;
-  }
-  .sidebar {
-    display: none;
-  }
-  .top-bar {
-    display: none;
-  }
-  .card {
-    border-radius: 0;
-    box-shadow: none;
-    border: none;
-  }
-  .card::before {
-    display: none;
-  }
-  input, textarea {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-}
-/* ============================
-   Mobile layout adjustments
-   ============================ */
-@media (max-width: 768px) {
+/* Mobile layout */
+@media (max-width: 600px) {
   body {
     padding: 8px;
   }
 
   .app-shell {
     max-width: 100%;
-    display: block;           /* Stack sidebar above main */
+    display: block;
   }
 
   .sidebar {
@@ -596,5 +577,92 @@ textarea {
   input[type="date"],
   textarea {
     font-size: 0.9rem;
+  }
+}
+
+/* PRINT – clean invoice look */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    padding: 0;
+  }
+
+  .app-shell {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Hide sidebar and toolbar/buttons when printing */
+  .sidebar,
+  .top-bar .toolbar,
+  .sidebar-actions,
+  button {
+    display: none !important;
+  }
+
+  .card {
+    box-shadow: none !important;
+    border-radius: 0;
+    border: none;
+    padding: 12px 16px;
+  }
+
+  .card::before {
+    display: none !important;
+  }
+
+  .section {
+    background: #ffffff !important;
+    border-color: #000000;
+  }
+
+  .header {
+    border-bottom: 1px solid #000000;
+  }
+
+  .section-title {
+    color: #000000 !important;
+    font-weight: 700;
+  }
+
+  .section-pill {
+    border-color: #000000;
+    color: #000000;
+  }
+
+  .brand-name span {
+    color: #000000 !important;
+  }
+
+  .brand-mini,
+  .footer-text {
+    color: #000000 !important;
+  }
+
+  /* Inputs as underlined fields */
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  .meta-input,
+  .signature-line-input,
+  .signature-meta span input {
+    background: transparent !important;
+    border: none !important;
+    border-bottom: 1px solid #000000 !important;
+    border-radius: 0 !important;
+    color: #000000 !important;
+    box-shadow: none !important;
+    padding: 0 0 2px 0 !important;
+  }
+
+  textarea {
+    min-height: 40px;
+  }
+
+  .logo-wrap {
+    box-shadow: none;
+    background: transparent;
   }
 }

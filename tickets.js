@@ -1,4 +1,4 @@
-// Gamerzone ticket system with localStorage persistence
+// Gamerzone ticket system with localStorage persistence + richer sidebar metadata
 (function () {
   const body = document.body;
   const ticketType = body.dataset.ticketType || "repair"; // "repair" or "buytrade"
@@ -23,6 +23,7 @@
   document.addEventListener("DOMContentLoaded", () => {
     attachEventListeners();
     loadTicketsFromStorage();
+
     if (!tickets.length) {
       createNewTicket(true);
     } else {
@@ -112,7 +113,6 @@
 
     let ticket = getActiveTicket();
     if (!ticket) {
-      // If somehow none exists, create one
       ticket = createNewTicket(true);
     }
 
@@ -125,7 +125,6 @@
     ticket.fields = fields;
     ticket.date = ticketDateInput ? ticketDateInput.value || null : null;
 
-    // If ticketId field is blank and we allow update, fill it with id
     if (ticketIdInput) {
       if (!ticketIdInput.value && updateIdIfEmpty) {
         ticketIdInput.value = ticket.id;
@@ -135,7 +134,7 @@
 
     ticket.updatedAt = new Date().toISOString();
     persistTicketsToStorage();
-    renderTicketList(); // update titles/metadata in sidebar
+    renderTicketList();
 
     return ticket;
   }
@@ -143,7 +142,6 @@
   function applyTicketToForm(ticket) {
     if (!ticketForm || !ticket) return;
 
-    // Fill date + ticket ID fields
     if (ticketDateInput) {
       ticketDateInput.value = ticket.date || "";
     }
@@ -151,7 +149,6 @@
       ticketIdInput.value = ticket.ticketId || ticket.id || "";
     }
 
-    // Clear existing fields first
     const formElements = ticketForm.elements;
     for (let el of formElements) {
       if (!el.name) continue;
@@ -162,7 +159,6 @@
       }
     }
 
-    // Apply from ticket.fields
     if (ticket.fields) {
       Object.keys(ticket.fields).forEach(name => {
         const value = ticket.fields[name];
@@ -170,7 +166,6 @@
         if (!el) return;
 
         if (el.length && el[0] && (el[0].type === "radio" || el[0].type === "checkbox")) {
-          // Group (radio/checkbox)
           for (let i = 0; i < el.length; i++) {
             el[i].checked = Array.isArray(value)
               ? value.includes(el[i].value)
@@ -193,19 +188,21 @@
     tickets
       .slice()
       .sort((a, b) => {
-        // Newest updated first
         return (b.updatedAt || "").localeCompare(a.updatedAt || "");
       })
       .forEach(ticket => {
+        const fields = ticket.fields || {};
+
         const item = document.createElement("div");
         item.className = "ticket-item" + (ticket.id === activeTicketId ? " active" : "");
 
+        // Top row: customer name + type pill
         const top = document.createElement("div");
         top.className = "ticket-item-top";
 
         const title = document.createElement("div");
         title.className = "ticket-item-title";
-        const name = (ticket.fields && ticket.fields.customer_name) || "No Name";
+        const name = fields.customer_name || "No Name";
         title.textContent = name;
 
         const pill = document.createElement("div");
@@ -215,6 +212,7 @@
         top.appendChild(title);
         top.appendChild(pill);
 
+        // Meta row: date + ID
         const meta = document.createElement("div");
         meta.className = "ticket-item-meta";
         const dateStr = ticket.date || (ticket.createdAt ? ticket.createdAt.slice(0, 10) : "");
@@ -224,8 +222,29 @@
           <span class="ticket-item-id">${idShort}</span>
         `;
 
+        // Extra row: console / repair / status / priority
+        const extra = document.createElement("div");
+        extra.className = "ticket-item-extra";
+
+        const consoleType = fields.console_type || "";
+        const repairType = fields.repair_type || "";
+        const status = fields.status || "";
+        const priority = fields.priority || "";
+
+        const bits = [];
+
+        if (consoleType) bits.push(consoleType);
+        if (repairType) bits.push(repairType);
+        if (status) bits.push(status);
+        if (priority && priority !== "Normal") bits.push(`Priority: ${priority}`);
+
+        extra.textContent = bits.join(" • ");
+
         item.appendChild(top);
         item.appendChild(meta);
+        if (bits.length) {
+          item.appendChild(extra);
+        }
 
         item.addEventListener("click", () => {
           saveActiveTicketFromForm(false);
@@ -242,18 +261,6 @@
     activeTicketId = id;
     localStorage.setItem(STORAGE_LAST_KEY, id);
 
-    // Update sidebar active class
-    if (ticketListEl) {
-      const items = ticketListEl.querySelectorAll(".ticket-item");
-      items.forEach(el => el.classList.remove("active"));
-      const match = Array.from(items).find(el =>
-        el.querySelector(".ticket-item-id") &&
-        (el.querySelector(".ticket-item-id").textContent || "").includes(
-          (ticket.ticketId || ticket.id || "").slice(0, 6)
-        )
-      );
-      // If the above matching is too fuzzy, we just update on render
-    }
     renderTicketList();
     applyTicketToForm(ticket);
 
@@ -327,13 +334,11 @@
       if (tickets.length && !activeTicketId) {
         selectTicket(tickets[0].id, true);
       }
-      // Reset file input so selecting same file again works
       event.target.value = "";
     });
   }
 
   function addOrMergeLoadedTicket(obj) {
-    // Expect our own format; if not, wrap/normalize
     let ticket = obj;
     if (!ticket.id) {
       ticket.id = generateTicketId(new Date());
@@ -345,7 +350,6 @@
       ticket.label = ticketLabel;
     }
     if (!ticket.fields && typeof ticket === "object") {
-      // If user loaded an older "flat" JSON, attempt to treat as fields
       ticket = {
         id: ticket.id,
         type: ticket.type,

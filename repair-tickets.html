@@ -120,7 +120,7 @@
             </div>
             <div class="field-row">
               <div class="field">
-  <div class="field-label">Console Type</div>
+<div class="field-label">Console Type</div>
   <select name="console_type">
     <option value="" selected disabled>Select console...</option>
 
@@ -203,7 +203,53 @@
               </div>
             </div>
           </div>
+          <!-- Repair Type / Status -->
+<div class="section">
+  <div class="section-header">
+    <div class="section-title">3. Repair Details</div>
+    <div class="section-pill">Repair</div>
+  </div>
 
+  <div class="field-row">
+    <div class="field">
+      <div class="field-label">Common Repair Type</div>
+      <select name="repair_type">
+        <option value="">(Select if applicable)</option>
+        <option>HDMI port replacement</option>
+        <option>Power supply / no power</option>
+        <option>Fan cleaning / overheating</option>
+        <option>Disk drive / Blu-ray not reading</option>
+        <option>SSD / storage failure or upgrade</option>
+        <option>USB / controller port issue</option>
+        <option>Wi-Fi / network connectivity issue</option>
+        <option>System software reinstall / OS repair</option>
+        <option>Motherboard / board-level repair</option>
+        <option>Other / see notes</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <div class="field-label">Priority</div>
+      <select name="priority">
+        <option value="Normal" selected>Normal</option>
+        <option value="Rush">Rush</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <div class="field-label">Status</div>
+      <select name="status">
+        <option value="Draft" selected>Draft</option>
+        <option value="Checked In">Checked In</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Waiting on Parts">Waiting on Parts</option>
+        <option value="Ready for Pickup">Ready for Pickup</option>
+        <option value="Closed">Closed</option>
+      </select>
+    </div>
+  </div>
+</div>
           <!-- Issue Description -->
           <div class="section">
             <div class="section-header">

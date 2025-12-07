@@ -580,8 +580,7 @@ textarea {
   }
 }
 
-/* PRINT – clean invoice look */
-@/* PRINT – clean invoice look, including iOS Safari */
+/* PRINT – clean invoice look, including iOS Safari */
 @media print {
   @page {
     margin: 10mm;

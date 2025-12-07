@@ -110,38 +110,79 @@
               <div class="section-pill">Console</div>
             </div>
 
-            <div class="field">
-              <div class="field-label">Console Type</div>
-              <div class="checkbox-group">
-                <label class="checkbox">
-                  <input type="checkbox" name="console_type_playstation">
-                  <span>PlayStation</span>
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="console_type_xbox">
-                  <span>Xbox</span>
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="console_type_nintendo">
-                  <span>Nintendo</span>
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="console_type_pc">
-                  <span>PC</span>
-                </label>
-                <label class="checkbox">
-                  <input type="checkbox" name="console_type_other">
-                  <span>Other:</span>
-                </label>
-                <input type="text" name="console_type_other_text" style="max-width: 160px;">
-              </div>
-            </div>
+<div class="field">
+  <div class="field-label">Console Type</div>
+  <select name="console_type">
+    <option value="" selected disabled>Select console...</option>
 
-            <div class="field-row" style="margin-top:6px;">
-              <div class="field">
-                <div class="field-label">Model</div>
-                <input type="text" name="console_model">
-              </div>
+    <optgroup label="Sony / PlayStation">
+      <option value="PlayStation (PS1)">PlayStation (PS1)</option>
+      <option value="PlayStation 2 (PS2)">PlayStation 2 (PS2)</option>
+      <option value="PlayStation 3 (PS3) Fat">PlayStation 3 (PS3) Fat</option>
+      <option value="PlayStation 3 (PS3) Slim">PlayStation 3 (PS3) Slim</option>
+      <option value="PlayStation 3 (PS3) Super Slim">PlayStation 3 (PS3) Super Slim</option>
+      <option value="PlayStation 4 (PS4)">PlayStation 4 (PS4)</option>
+      <option value="PlayStation 4 Slim">PlayStation 4 Slim</option>
+      <option value="PlayStation 4 Pro">PlayStation 4 Pro</option>
+      <option value="PlayStation 5 (PS5)">PlayStation 5 (PS5)</option>
+      <option value="PlayStation 5 Slim">PlayStation 5 Slim</option>
+      <option value="PSP">PSP</option>
+      <option value="PSP Go">PSP Go</option>
+      <option value="PS Vita">PS Vita</option>
+      <option value="PlayStation TV">PlayStation TV</option>
+    </optgroup>
+
+    <optgroup label="Microsoft / Xbox">
+      <option value="Xbox (Original)">Xbox (Original)</option>
+      <option value="Xbox 360">Xbox 360</option>
+      <option value="Xbox 360 S (Slim)">Xbox 360 S (Slim)</option>
+      <option value="Xbox 360 E">Xbox 360 E</option>
+      <option value="Xbox One">Xbox One</option>
+      <option value="Xbox One S">Xbox One S</option>
+      <option value="Xbox One X">Xbox One X</option>
+      <option value="Xbox Series S">Xbox Series S</option>
+      <option value="Xbox Series X">Xbox Series X</option>
+    </optgroup>
+
+    <optgroup label="Nintendo – Home Consoles">
+      <option value="NES">Nintendo Entertainment System (NES)</option>
+      <option value="SNES">Super Nintendo (SNES)</option>
+      <option value="Nintendo 64">Nintendo 64</option>
+      <option value="GameCube">Nintendo GameCube</option>
+      <option value="Wii">Nintendo Wii</option>
+      <option value="Wii U">Nintendo Wii U</option>
+      <option value="Switch">Nintendo Switch</option>
+      <option value="Switch Lite">Nintendo Switch Lite</option>
+      <option value="Switch OLED">Nintendo Switch OLED</option>
+      <option value="Switch 2">Nintendo Switch 2</option>
+    </optgroup>
+
+    <optgroup label="Nintendo – Handhelds">
+      <option value="Game Boy">Game Boy</option>
+      <option value="Game Boy Pocket">Game Boy Pocket</option>
+      <option value="Game Boy Color">Game Boy Color</option>
+      <option value="Game Boy Advance">Game Boy Advance</option>
+      <option value="Game Boy Advance SP">Game Boy Advance SP</option>
+      <option value="Game Boy Micro">Game Boy Micro</option>
+      <option value="Nintendo DS">Nintendo DS</option>
+      <option value="Nintendo DS Lite">Nintendo DS Lite</option>
+      <option value="Nintendo DSi">Nintendo DSi</option>
+      <option value="Nintendo DSi XL">Nintendo DSi XL</option>
+      <option value="Nintendo 3DS">Nintendo 3DS</option>
+      <option value="Nintendo 3DS XL">Nintendo 3DS XL</option>
+      <option value="Nintendo 2DS">Nintendo 2DS</option>
+      <option value="Nintendo 2DS XL">Nintendo 2DS XL</option>
+    </optgroup>
+
+    <optgroup label="Other / Custom">
+      <option value="PC / Gaming Desktop">PC / Gaming Desktop</option>
+      <option value="Gaming Laptop">Gaming Laptop</option>
+      <option value="Arcade / Cabinet">Arcade / Cabinet</option>
+      <option value="Other (see notes)">Other (see notes)</option>
+    </optgroup>
+  </select>
+</div>
+
               <div class="field">
                 <div class="field-label">Serial Number</div>
                 <input type="text" name="console_serial">

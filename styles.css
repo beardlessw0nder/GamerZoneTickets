@@ -752,7 +752,7 @@ select:focus {
     color: #000000 !important;
     padding: 0 !important;
     margin: 0 !important;
-    font-size: 11px !important; /* slightly smaller base font */
+    font-size: 12px !important;
   }
 
   * {

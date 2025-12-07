@@ -192,7 +192,7 @@ body {
   opacity: 0.85;
 }
 
-/* extra metadata line we added (console, repair, status, priority) */
+/* extra metadata line (console, repair, status, priority) */
 .ticket-item-extra {
   font-size: 0.7rem;
   color: var(--gz-muted);
@@ -372,8 +372,52 @@ button:active {
 }
 
 .meta {
-  min-width: 180px;
+  min-width: 190px;
   font-size: 0.78rem;
+}
+
+/* Status tag in meta */
+
+.status-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 4px;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--gz-border);
+  background: rgba(8, 8, 18, 0.96);
+  color: var(--gz-muted);
+  margin-bottom: 4px;
+}
+
+.status-tag.status-draft {
+  border-color: var(--gz-border);
+  color: var(--gz-muted);
+}
+
+.status-tag.status-checkedin,
+.status-tag.status-inprogress {
+  border-color: var(--gz-highlight);
+  color: var(--gz-highlight);
+}
+
+.status-tag.status-waiting {
+  border-color: #f0c14b;
+  color: #f0c14b;
+}
+
+.status-tag.status-ready {
+  border-color: #24e07a;
+  color: #24e07a;
+}
+
+.status-tag.status-closed {
+  border-color: #666;
+  color: #888;
 }
 
 .meta-label {
@@ -381,7 +425,7 @@ button:active {
   margin-right: 4px;
 }
 
-/* Meta inputs use same base styling but narrower */
+/* Meta inputs */
 
 .meta-input {
   width: 120px;
@@ -768,6 +812,11 @@ select:focus {
     border-color: #000000 !important;
     color: #000000 !important;
     background: transparent !important;
+  }
+
+  /* hide internal-only sections (like Repair Details) */
+  .no-print {
+    display: none !important;
   }
 
   input[type="text"],

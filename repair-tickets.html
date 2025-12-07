@@ -23,6 +23,7 @@
       <div class="sidebar-actions">
         <button type="button" class="primary" id="newTicketBtn">＋ New</button>
         <button type="button" id="loadTicketsBtn">📂 Load</button>
+        <button type="button" id="clearClosedBtn">🧹 Clear Closed</button>
         <input type="file" id="fileInput" accept=".json" multiple style="display:none;">
       </div>
     </div>
@@ -66,7 +67,10 @@
             </div>
           </div>
           <div class="meta">
-            <div>
+            <div id="statusTag" class="status-tag">
+              Status: Draft
+            </div>
+            <div style="margin-top:4px;">
               <span class="meta-label">Date:</span>
               <input type="date"
                      id="ticketDate"
@@ -192,11 +196,6 @@
                   </optgroup>
                 </select>
               </div>
-
-              <div class="field">
-                <div class="field-label">Model</div>
-                <input type="text" name="console_model">
-              </div>
             </div>
 
             <div class="field-row">
@@ -211,8 +210,8 @@
             </div>
           </div>
 
-          <!-- 3. Repair Type / Status -->
-          <div class="section">
+          <!-- 3. Repair Type / Status (internal, no-print) -->
+          <div class="section no-print">
             <div class="section-header">
               <div class="section-title">3. Repair Details</div>
               <div class="section-pill">Repair</div>

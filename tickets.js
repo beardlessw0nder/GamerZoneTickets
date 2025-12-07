@@ -1,4 +1,5 @@
-// Gamerzone ticket system with localStorage persistence + richer sidebar metadata
+// Gamerzone ticket system with localStorage persistence, sidebar metadata,
+// status tag, and Clear Closed
 (function () {
   const body = document.body;
   const ticketType = body.dataset.ticketType || "repair"; // "repair" or "buytrade"
@@ -10,11 +11,13 @@
   const ticketListEl = document.getElementById("ticketList");
   const newTicketBtn = document.getElementById("newTicketBtn");
   const loadTicketsBtn = document.getElementById("loadTicketsBtn");
+  const clearClosedBtn = document.getElementById("clearClosedBtn");
   const fileInput = document.getElementById("fileInput");
   const saveTicketBtn = document.getElementById("saveTicketBtn");
   const ticketForm = document.getElementById("ticketForm");
   const ticketDateInput = document.getElementById("ticketDate");
   const ticketIdInput = document.getElementById("ticketId");
+  const statusTagEl = document.getElementById("statusTag");
 
   let tickets = [];
   let activeTicketId = null;
@@ -49,6 +52,10 @@
       fileInput.addEventListener("change", handleFileLoad);
     }
 
+    if (clearClosedBtn) {
+      clearClosedBtn.addEventListener("click", clearClosedTickets);
+    }
+
     if (saveTicketBtn) {
       saveTicketBtn.addEventListener("click", () => {
         const ticket = saveActiveTicketFromForm();
@@ -58,8 +65,13 @@
     }
 
     if (ticketForm) {
+      // Text inputs / textareas
       ticketForm.addEventListener("input", () => {
-        // Auto-update and persist on any input change
+        saveActiveTicketFromForm(false);
+      });
+
+      // Dropdowns / checkboxes / radios
+      ticketForm.addEventListener("change", () => {
         saveActiveTicketFromForm(false);
       });
     }
@@ -136,6 +148,11 @@
     persistTicketsToStorage();
     renderTicketList();
 
+    // Update status tag (for repair tickets)
+    if (ticketType === "repair") {
+      updateStatusTagFromFields(fields);
+    }
+
     return ticket;
   }
 
@@ -178,6 +195,33 @@
         }
       });
     }
+
+    if (ticketType === "repair") {
+      updateStatusTagFromFields(ticket.fields || {});
+    }
+  }
+
+  function updateStatusTagFromFields(fields) {
+    if (!statusTagEl) return;
+    const status = fields.status || "Draft";
+    statusTagEl.textContent = `Status: ${status}`;
+
+    statusTagEl.className = "status-tag";
+
+    const norm = status.toLowerCase();
+    if (norm.includes("ready")) {
+      statusTagEl.classList.add("status-ready");
+    } else if (norm.includes("waiting")) {
+      statusTagEl.classList.add("status-waiting");
+    } else if (norm.includes("in progress")) {
+      statusTagEl.classList.add("status-inprogress");
+    } else if (norm.includes("checked in")) {
+      statusTagEl.classList.add("status-checkedin");
+    } else if (norm.includes("closed")) {
+      statusTagEl.classList.add("status-closed");
+    } else {
+      statusTagEl.classList.add("status-draft");
+    }
   }
 
   // ==== Rendering Sidebar ====
@@ -196,7 +240,6 @@
         const item = document.createElement("div");
         item.className = "ticket-item" + (ticket.id === activeTicketId ? " active" : "");
 
-        // Top row: customer name + type pill
         const top = document.createElement("div");
         top.className = "ticket-item-top";
 
@@ -212,7 +255,6 @@
         top.appendChild(title);
         top.appendChild(pill);
 
-        // Meta row: date + ID
         const meta = document.createElement("div");
         meta.className = "ticket-item-meta";
         const dateStr = ticket.date || (ticket.createdAt ? ticket.createdAt.slice(0, 10) : "");
@@ -222,7 +264,6 @@
           <span class="ticket-item-id">${idShort}</span>
         `;
 
-        // Extra row: console / repair / status / priority
         const extra = document.createElement("div");
         extra.className = "ticket-item-extra";
 
@@ -232,7 +273,6 @@
         const priority = fields.priority || "";
 
         const bits = [];
-
         if (consoleType) bits.push(consoleType);
         if (repairType) bits.push(repairType);
         if (status) bits.push(status);
@@ -300,6 +340,36 @@
       tickets = [];
     }
     renderTicketList();
+  }
+
+  // ==== Clear Closed Tickets ====
+  function clearClosedTickets() {
+    const before = tickets.length;
+    tickets = tickets.filter(t => {
+      const status = (t.fields && t.fields.status) || "";
+      return status !== "Closed";
+    });
+
+    if (tickets.length === 0) {
+      activeTicketId = null;
+      persistTicketsToStorage();
+      renderTicketList();
+      if (ticketForm) ticketForm.reset();
+      if (ticketType === "repair") updateStatusTagFromFields({});
+      return;
+    }
+
+    if (!tickets.find(t => t.id === activeTicketId)) {
+      activeTicketId = tickets[0].id;
+    }
+
+    persistTicketsToStorage();
+    renderTicketList();
+
+    const active = tickets.find(t => t.id === activeTicketId);
+    if (active) {
+      applyTicketToForm(active);
+    }
   }
 
   // ==== File Load / Save (JSON) ====

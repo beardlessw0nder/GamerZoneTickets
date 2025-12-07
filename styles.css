@@ -742,7 +742,7 @@ select:focus {
 
 @media print {
   @page {
-    margin: 10mm;
+    margin: 6mm; /* slightly smaller margins to help fit one page */
   }
 
   html,
@@ -752,6 +752,7 @@ select:focus {
     color: #000000 !important;
     padding: 0 !important;
     margin: 0 !important;
+    font-size: 11px !important; /* slightly smaller base font */
   }
 
   * {
@@ -788,6 +789,16 @@ select:focus {
 
   .header {
     border-bottom: 1px solid #000000 !important;
+    padding-bottom: 6px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .brand-name {
+    font-size: 0.95rem !important;
+  }
+
+  .header-subtitle {
+    font-size: 0.8rem !important;
   }
 
   .logo-wrap {
@@ -795,9 +806,21 @@ select:focus {
     background: transparent !important;
   }
 
+  /* hide internal-only sections (like Repair Details) */
+  .no-print {
+    display: none !important;
+  }
+
+  /* hide status tag so "Ready for Pickup" etc. does not show on PDF */
+  .status-tag {
+    display: none !important;
+  }
+
   .section {
     background: #ffffff !important;
     border-color: #000000 !important;
+    margin-bottom: 6px !important;
+    padding: 6px 6px 4px !important;
   }
 
   .section-title,
@@ -808,15 +831,20 @@ select:focus {
     color: #000000 !important;
   }
 
+  .section-title {
+    font-size: 0.8rem !important;
+  }
+
+  .field-label {
+    font-size: 0.7rem !important;
+  }
+
   .section-pill {
     border-color: #000000 !important;
     color: #000000 !important;
     background: transparent !important;
-  }
-
-  /* hide internal-only sections (like Repair Details) */
-  .no-print {
-    display: none !important;
+    font-size: 0.6rem !important;
+    padding: 1px 6px !important;
   }
 
   input[type="text"],
@@ -833,14 +861,25 @@ select:focus {
     border-radius: 0 !important;
     color: #000000 !important;
     box-shadow: none !important;
-    padding: 0 0 2px 0 !important;
+    padding: 0 0 1px 0 !important;
+    font-size: 0.75rem !important;
   }
 
   textarea {
-    min-height: 40px !important;
+    min-height: 32px !important; /* shorter textareas to save vertical space */
   }
 
   .small-text {
     color: #000000 !important;
+    font-size: 0.7rem !important;
+  }
+
+  .signature-row {
+    gap: 6px !important;
+  }
+
+  .footer-text {
+    margin-top: 6px !important;
+    font-size: 0.7rem !important;
   }
 }

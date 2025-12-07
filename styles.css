@@ -398,7 +398,8 @@ body {
 input[type="text"],
 input[type="number"],
 input[type="date"],
-textarea {
+textarea 
+select{
   width: 100%;
   padding: 4px 6px;
   border-radius: 6px;
@@ -412,7 +413,8 @@ textarea {
 input[type="text"]:focus,
 input[type="number"]:focus,
 input[type="date"]:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   border-color: var(--gz-red);
   box-shadow: 0 0 0 1px rgba(226, 38, 28, 0.6);
 }
@@ -747,6 +749,7 @@ media print {
   input[type="number"],
   input[type="date"],
   textarea,
+  select,
   .meta-input,
   .signature-line-input,
   .signature-meta span input {
